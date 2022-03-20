@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">REST Client Login</string>
+        <string name="get_button">get</string>
+        <string name="post_button">post</string>
+        <string name="delete_button">delete</string>
+        <string name="answer_textView">answer</string>
+        <string name="request_label">enter the request</string>
+        <string name="login_button_label">login</string>
+        <string name="password_editText_label">password</string>
+        <string name="name_editText_label">name</string>
+        <!-- TODO: Remove or change this placeholder text -->
+        <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
