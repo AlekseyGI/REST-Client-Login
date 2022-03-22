@@ -21,6 +21,16 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public String authToken = null;
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
     EditText username;
     EditText password;
     Button btnLogin;
@@ -42,29 +52,29 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Username / Password Required", Toast.LENGTH_SHORT).show();
                 }else{
                     //proceed login
-                    login();
+                    login(getAuthToken());
                 }
-
             }
         });
     }
 
-    public void login(){
+    public void login(String authToken){
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(username.getText().toString());
         loginRequest.setPassword(password.getText().toString());
 
-        Call<LoginResponse> loginResponseCall = ApiClient.getUserService().userLogin(loginRequest);
+        Call<LoginResponse> loginResponseCall = ApiClient.getUserService(authToken).userLogin(loginRequest);
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                 if(response.isSuccessful()){
                     Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    setAuthToken(response.toString());
                 }else{
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    setAuthToken(response.toString());
                 }
-
             }
 
             @Override
