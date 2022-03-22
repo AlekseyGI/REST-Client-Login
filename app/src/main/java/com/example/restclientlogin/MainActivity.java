@@ -8,12 +8,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restclientlogin.login.ApiClient;
 import com.example.restclientlogin.login.LoginRequest;
 import com.example.restclientlogin.login.LoginResponse;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     Button btnLogin;
+    TextView printText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.name_editText);
         password = findViewById(R.id.password_editText);
         btnLogin = findViewById(R.id.login_button);
+        printText = findViewById(R.id.textView);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +76,18 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     setAuthToken(response.toString());
+                    printText.setText(response.toString());
                 }else{
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     setAuthToken(response.toString());
+                    printText.setText(response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Throwable "+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
+                printText.setText(t.getLocalizedMessage());
             }
         });
 
